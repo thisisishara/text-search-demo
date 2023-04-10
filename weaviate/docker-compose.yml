@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - weaviate
+    environment:
+      WEAVIATE_URL: http://weaviate:8080
+      OPENAI_API_KEY: <your_api_key_here>
+
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    container_name: weaviate
+    restart: always
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
